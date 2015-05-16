@@ -99,4 +99,37 @@ end
 
 -- ]]
 
+-- [[ Slants 
+
+-- /
+function separators.slant(col1, col2)
+	local widget = wibox.widget.base.make_widget()
+
+	widget.fit = function(m, w, h) return width, height end
+
+	widget.draw = function(mycross, wibox, cr, width, height)
+		if col1 ~= "alpha" then
+			cr:set_source_rgb(gears.color.parse_color(col1))
+			cr:new_path()
+			cr:move_to(width,0)
+			cr:line_to(0,height)
+			cr:line_to(0,0)
+			cr:close_path()
+			cr:fill()
+		end
+
+		if col2 ~= "alpha" then
+			cr:set_source_rgb(gears.color.parse_color(col2))
+			cr:new_path()
+			cr:move_to(width,0)
+			cr:line_to(0,height)
+			cr:line_to(width,height)
+			cr:close_path()
+			cr:fill()
+		end
+	end
+	return widget
+end
+
+
 return separators
